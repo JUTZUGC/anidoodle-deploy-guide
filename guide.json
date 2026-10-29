@@ -1,0 +1,108 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "anidoodle",
+    "nameCn": "anidoodle",
+    "repoName": "anidoodle-deploy-guide",
+    "oneLiner": "1.2k stars，Apache-2.0，用代码画手绘插画与动画的 Agent 工具",
+    "officialRepo": "https://github.com/alexgreensh/anidoodle",
+    "officialDocs": "https://github.com/alexgreensh/anidoodle/blob/main/README.md",
+    "stars": "1.2k",
+    "license": "Apache-2.0",
+    "highlights": [
+      "32 种风格：铅笔、水彩、马克笔、丝网印、像素、木刻、水墨等",
+      "同一源码同一结果：每次渲染完全一致，可版本管理",
+      "多种产物：静态插画、循环动画、带配乐视频、离线 HTML",
+      "Agent 插件：Claude Code / Codex / Grok Build 直接安装使用",
+      "独立引擎：不装插件也能用 Node 脚本生成与渲染",
+      "本地渲染：素材与产物都在自己机器上"
+    ],
+    "mcpSupport": "anidoodle 以 Agent 插件或 skill 形式工作，不含独立 MCP server；本仓库的 MCP 只提供安装步骤与常见问题。",
+    "webuiUrl": "",
+    "adapterPorts": "",
+    "collectedAt": "2026-10-28",
+    "verification": [
+      [
+        "README 确认 Node 20+、FFmpeg 与 Chromium 依赖",
+        "已核对 2026-10-28"
+      ],
+      [
+        "Release v0.9.6 与插件安装命令已核对",
+        "已核对 2026-10-28"
+      ],
+      [
+        "未实测安装与渲染（会下载 Chromium 与依赖）",
+        "说明 2026-10-28"
+      ],
+      [
+        "非目标宿主调用被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-10-28"
+      ]
+    ],
+    "deploy": {
+      "type": "script",
+      "requires": [
+        "node"
+      ],
+      "steps": [
+        "node -e \"const a=+process.versions.node.split('.')[0]; if(a<20){console.error('需要 Node.js 20 或更高，当前 '+process.versions.node);process.exit(1)}\"",
+        "git clone https://github.com/alexgreensh/anidoodle.git",
+        "node anidoodle/engine/tools/scaffold.mjs \"$HOME/anidoodle-art\" --still hero --film intro --format 9x16 --duration 60",
+        "cd \"$HOME/anidoodle-art\" && npm install && npx playwright-core install chromium",
+        "echo \"安装完成：在 $HOME/anidoodle-art 运行 node tools/still.mjs hero --out out/hero.png\""
+      ],
+      "stepsPs": [
+        "node -e \"const a=+process.versions.node.split('.')[0]; if(a<20){console.error('需要 Node.js 20 或更高，当前 '+process.versions.node);process.exit(1)}\"",
+        "git clone https://github.com/alexgreensh/anidoodle.git",
+        "node anidoodle\\engine\\tools\\scaffold.mjs \"$HOME\\anidoodle-art\" --still hero --film intro --format 9x16 --duration 60",
+        "cd \"$HOME\\anidoodle-art\"; npm install; npx playwright-core install chromium",
+        "Write-Host \"安装完成：在 $HOME\\anidoodle-art 运行 node tools/still.mjs hero --out out/hero.png\""
+      ],
+      "source": "https://github.com/alexgreensh/anidoodle#get-started"
+    },
+    "pitfalls": [
+      "Node 版本过低：先升级到 20+ 再运行 scaffold",
+      "渲染没有画面：先执行 npx playwright-core install chromium",
+      "视频导出失败：安装 FFmpeg 并确认在 PATH 里",
+      "Windows 路径报错：用 PowerShell 的 $HOME，别在路径里混用正反斜杠",
+      "插件装不上：确认客户端支持 marketplace，或改用 skill 目录复制",
+      "生成很慢：第一次要装依赖与浏览器，之后会快很多"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/anidoodle-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/anidoodle-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "anidoodle 安装",
+    "anidoodle 教程",
+    "代码 画插画",
+    "手绘 动画 生成",
+    "Agent 绘图 插件",
+    "Claude Code 绘图",
+    "代码生成 动画",
+    "anidoodle 中文",
+    "离线 HTML 动画",
+    "anidoodle deploy guide"
+  ],
+  "topics": [
+    "generative-art",
+    "illustration",
+    "animation",
+    "agent-skills",
+    "nodejs"
+  ]
+}
